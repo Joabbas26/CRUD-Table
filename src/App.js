@@ -1,23 +1,26 @@
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
+import MainModal from './MainModal';
+import MainTable from './MainTable';
 
 function App() {
+   const [open, setOpen] = useState(false);
+   const [modalSyle, setModalStyle] = useState({});
+
+   const showModal = () => {
+    if(open === true) {
+      setModalStyle({display: "none"});
+    }
+    else {
+      setModalStyle({display: "block"});
+    }
+    setOpen(!open);
+   }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <MainTable/>
+      <MainModal/>
     </div>
   );
 }

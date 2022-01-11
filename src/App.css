@@ -1,38 +1,45 @@
+/* Main App Section */
 .App {
+  height: 100%;
+  width: 100%;
+  background-color: black;
+}
+
+/* Table Div */
+.table-responsive {
+  margin: 5rem 15rem;
+  background-color: white;
+}
+
+/* Table Element */
+.table{
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Edit Icon */
+.edit{
+  color:blue
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Delete Icon */
+.delete {
+  color: red;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+/* Add Row Icon */
+.addRow{
+  color: green;
 }
 
-.App-link {
-  color: #61dafb;
+/* All Icons */
+#icon{
+  cursor: pointer;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Modal Section */
+.modal {
+  display: none;
+  position: absolute;
+  background-color: white;
+  color: black;
 }
