@@ -1,10 +1,13 @@
 import React from 'react';
-import { connect } from 'react-redux'
 import { Trash, PencilSquare, PlusSquare } from 'react-bootstrap-icons';
 import './App.css'
 import MainModal from './MainModal';
+import { useDispatch } from 'react-redux'
+import { show, hide } from './ModalSlice'
 
-const MainTable = ({showModal}) => {
+export default function MainTable() {
+
+    const dispatch = useDispatch()
 
     return (
         <div>
@@ -40,21 +43,9 @@ const MainTable = ({showModal}) => {
                                 </tr>
                             </tbody>
                     </table>
-                    <PlusSquare className='addRow' id='icon' onClick={showModal} style={{height:30, width:80}}/>
+                    <PlusSquare className='addRow' id='icon' onClick={()=> dispatch(show())} style={{height:30, width:30}}/>
                 </div>
-                <MainModal/>
+                <MainModal show={show} onHide={hide}/>
         </div>
     )
 }
-
-const mapStateToProps = (state) => {
-    return{
-      showModal: state.ModalReducer.showModal  
-    }
-  }
-
-const mapDispatchToProps = (dispatch) => ({
-    showModal: () => dispatch({ type: "showModal" })
-  })
-  
-  export default connect(mapStateToProps, mapDispatchToProps)(MainTable);

@@ -5,15 +5,18 @@ import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import Modal from 'react-bootstrap/Modal'
-import {connect} from 'react-redux';
+import { useDispatch } from 'react-redux'
+import { hide } from './ModalSlice'
 
-const MainModal = ({closeModal, showModal}) => {
+export default function MainModal () {
+    const dispatch = useDispatch()
+
     return (
         <div> 
-            <Modal.Dialog isOpen={showModal}>
+            <Modal.Dialog>
                 <Modal.Header>
-                    <Modal.Title>Input Data</Modal.Title>
-                    <button onClick={closeModal}>&#215;</button>
+                    <Modal.Title>Employee Evaluation</Modal.Title>
+                    <button className='btn btn primary' id='closeButton' onClick={() => dispatch(hide())}>&#215;</button>
                 </Modal.Header>
 
                 <Modal.Body>
@@ -50,7 +53,7 @@ const MainModal = ({closeModal, showModal}) => {
                             </Form.Group>
 
                             <Form.Group as={Col} controlId="formGridRecommendtion">
-                            <Form.Label>Recommendtion</Form.Label>
+                            <Form.Label>Recommendation</Form.Label>
                             <Form.Control  placeholder='Score'/>
                             </Form.Group>
                         </Row>
@@ -59,22 +62,9 @@ const MainModal = ({closeModal, showModal}) => {
                 </Modal.Body>
 
                 <Modal.Footer>
-                    <Button variant="primary" type="submit">Save changes</Button>
+                    <Button variant="primary" type="submit">Save</Button>
                 </Modal.Footer>
             </Modal.Dialog>
         </div>
     )
 }
-
-const mapStateToProps = (state) => {
-    return{
-      showModal: state.ModalReducer.showModal  
-    }
-  }
-  
-  const mapDispatchToProps = (dispatch) => ({
-    closeModal: () => dispatch({ type: "hideModal" }),
-    showModal: () => dispatch({ type: "showModal" })
-  });
-  
-export default connect(mapStateToProps, mapDispatchToProps)(MainModal);

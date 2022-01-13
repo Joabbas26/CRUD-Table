@@ -5,6 +5,7 @@ html {
 /* Main App Section */
 .App {
   background-color: black;
+  height: 100vh;
 }
 
 /* Table Div */
@@ -21,7 +22,7 @@ html {
 
 /* Edit Icon */
 .edit{
-  color:blue
+  color:rgb(2, 115, 207)
 }
 
 /* Delete Icon */
@@ -45,4 +46,9 @@ html {
   position: absolute;
   background-color: white;
   color: black;
+}
+
+/* CloseButton*/
+#closeButton {
+  font-size:1.4rem;
 }
