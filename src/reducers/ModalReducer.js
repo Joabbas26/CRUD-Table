@@ -5,7 +5,7 @@ const initialState = {
     showModal: false
 }
 
-export function ModalReducer(state = initialState, action) {
+export default function ModalReducer(state = initialState, action) {
     const actions = {
         "showModal" : {
             ...state,

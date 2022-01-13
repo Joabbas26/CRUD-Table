@@ -1,4 +1,16 @@
-import { configureStore } from "@reduxjs/toolkit";
-import storeReducer from './ModalReducer'
+import ModalReducer from './reducers/ModalReducer'
+import { createStore, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
+import { composeWithDevTools } from 'redux-devtools-extension'
 
-export default configureStore ({ reducer: { store: storeReducer }});
+const store = createStore(ModalReducer, composeWithDevTools(
+   applyMiddleware(thunk)
+))
+
+export default store;
+/*
+
+
+
+
+*/

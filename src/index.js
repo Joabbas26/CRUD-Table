@@ -4,12 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
-import { ModalReducer } from './ModalReducer';
-import { combineReducers } from 'redux';
-import { createStore } from 'redux';
-
-var rootReducer = combineReducers({ ModalReducer })
-const store = createStore(rootReducer);
+import store from './store'
 
 ReactDOM.render(
   <Provider store={store}>

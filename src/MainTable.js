@@ -47,8 +47,14 @@ const MainTable = ({showModal}) => {
     )
 }
 
+const mapStateToProps = (state) => {
+    return{
+      showModal: state.ModalReducer.showModal  
+    }
+  }
+
 const mapDispatchToProps = (dispatch) => ({
     showModal: () => dispatch({ type: "showModal" })
   })
   
-  export default connect(null, mapDispatchToProps)(MainTable);
+  export default connect(mapStateToProps, mapDispatchToProps)(MainTable);

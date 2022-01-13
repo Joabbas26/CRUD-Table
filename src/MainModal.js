@@ -9,12 +9,11 @@ import {connect} from 'react-redux';
 
 const MainModal = ({closeModal, showModal}) => {
     return (
-        <div>
-            
+        <div> 
             <Modal.Dialog isOpen={showModal}>
                 <Modal.Header>
                     <Modal.Title>Input Data</Modal.Title>
-                    <button onClick={closeModal}></button>
+                    <button onClick={closeModal}>&#215;</button>
                 </Modal.Header>
 
                 <Modal.Body>
@@ -74,7 +73,8 @@ const mapStateToProps = (state) => {
   }
   
   const mapDispatchToProps = (dispatch) => ({
-    closeModal: () => dispatch({ type: "HideModal" }),
+    closeModal: () => dispatch({ type: "hideModal" }),
+    showModal: () => dispatch({ type: "showModal" })
   });
   
 export default connect(mapStateToProps, mapDispatchToProps)(MainModal);
