@@ -1,19 +1,22 @@
+html {
+  background-color: black;
+}
+
 /* Main App Section */
 .App {
-  height: 100%;
-  width: 100%;
   background-color: black;
 }
 
 /* Table Div */
 .table-responsive {
-  margin: 5rem 15rem;
-  background-color: white;
+ padding: 3rem 6rem;
+ background-color: black;
 }
 
 /* Table Element */
 .table{
   text-align: center;
+  background-color: white;
 }
 
 /* Edit Icon */

@@ -1,27 +1,19 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './App.css';
 import MainModal from './MainModal';
 import MainTable from './MainTable';
+//import { Provider } from 'react/redux';
+//import Store from './store'
 
 function App() {
-   const [open, setOpen] = useState(false);
-   const [modalSyle, setModalStyle] = useState({});
-
-   const showModal = () => {
-    if(open === true) {
-      setModalStyle({display: "none"});
-    }
-    else {
-      setModalStyle({display: "block"});
-    }
-    setOpen(!open);
-   }
 
   return (
+   // <Provider store={Store}>
     <div className="App">
       <MainTable/>
       <MainModal/>
     </div>
+   // </Provider>
   );
 }
 

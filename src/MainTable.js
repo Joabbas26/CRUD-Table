@@ -1,8 +1,11 @@
-import React from 'react'
+import React from 'react';
+import { connect } from 'react-redux'
 import { Trash, PencilSquare, PlusSquare } from 'react-bootstrap-icons';
 import './App.css'
+import MainModal from './MainModal';
 
-export default function MainTable(showModal) {
+const MainTable = ({showModal}) => {
+
     return (
         <div>
             <div className="table-responsive">
@@ -39,6 +42,13 @@ export default function MainTable(showModal) {
                     </table>
                     <PlusSquare className='addRow' id='icon' onClick={showModal} style={{height:30, width:80}}/>
                 </div>
+                <MainModal/>
         </div>
     )
 }
+
+const mapDispatchToProps = (dispatch) => ({
+    showModal: () => dispatch({ type: "showModal" })
+  })
+  
+  export default connect(null, mapDispatchToProps)(MainTable);

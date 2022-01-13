@@ -5,13 +5,16 @@ import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import Modal from 'react-bootstrap/Modal'
+import {connect} from 'react-redux';
 
-export default function MainModal(modalSyle, showModal) {
+const MainModal = ({closeModal, showModal}) => {
     return (
         <div>
-            <Modal.Dialog>
-                <Modal.Header closeButton>
+            
+            <Modal.Dialog isOpen={showModal}>
+                <Modal.Header>
                     <Modal.Title>Input Data</Modal.Title>
+                    <button onClick={closeModal}></button>
                 </Modal.Header>
 
                 <Modal.Body>
@@ -29,12 +32,11 @@ export default function MainModal(modalSyle, showModal) {
                         </Row>
 
                         <Form.Group className="mb-3" controlId="formGridYearsAtCompany">
-                            <Form.Label>Years At Company</Form.Label>
-                            <Form.Control placeholder="Years At Company" />
+                            <Form.Label>Time At Company</Form.Label>
+                            <Form.Control placeholder="In Years" />
                         </Form.Group>
 
                         <Row className="mb-3">
-
                             <Form.Group as={Col} controlId="formGridFullTime">
                             <Form.Label>Full-Time</Form.Label>
                             <Form.Select defaultValue="Choose...">
@@ -45,12 +47,12 @@ export default function MainModal(modalSyle, showModal) {
 
                             <Form.Group as={Col} controlId="formGridOvertime">
                             <Form.Label>Overtime</Form.Label>
-                            <Form.Control />
+                            <Form.Control placeholder='In Hours'/>
                             </Form.Group>
 
                             <Form.Group as={Col} controlId="formGridRecommendtion">
                             <Form.Label>Recommendtion</Form.Label>
-                            <Form.Control />
+                            <Form.Control  placeholder='Score'/>
                             </Form.Group>
                         </Row>
 
@@ -64,3 +66,15 @@ export default function MainModal(modalSyle, showModal) {
         </div>
     )
 }
+
+const mapStateToProps = (state) => {
+    return{
+      showModal: state.ModalReducer.showModal  
+    }
+  }
+  
+  const mapDispatchToProps = (dispatch) => ({
+    closeModal: () => dispatch({ type: "HideModal" }),
+  });
+  
+export default connect(mapStateToProps, mapDispatchToProps)(MainModal);
