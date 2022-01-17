@@ -1,4 +1,4 @@
-import React from 'react'
+import {React, useSelector} from 'react'
 import './App.css'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
@@ -9,14 +9,18 @@ import { useDispatch } from 'react-redux'
 import { hide } from './ModalSlice'
 
 export default function MainModal () {
+
     const dispatch = useDispatch()
+    const {isOpen} = useSelector((state) => state.modal.isOpen)//Not regestiring state.modal
+
+    const closeModalHandler = () => dispatch(hide());
 
     return (
         <div> 
-            <Modal.Dialog>
+            <Modal.Dialog className={`${isOpen ? 'modal-show' : 'modal-hide'}`}>
                 <Modal.Header>
                     <Modal.Title>Employee Evaluation</Modal.Title>
-                    <button className='btn btn primary' id='closeButton' onClick={() => dispatch(hide())}>&#215;</button>
+                    <button className='btn btn primary' id='closeButton' onClick={closeModalHandler}>&#215;</button>
                 </Modal.Header>
 
                 <Modal.Body>

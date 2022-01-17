@@ -1,13 +1,14 @@
-import React from 'react';
+import React, {useSelector} from 'react';
 import { Trash, PencilSquare, PlusSquare } from 'react-bootstrap-icons';
 import './App.css'
 import MainModal from './MainModal';
 import { useDispatch } from 'react-redux'
-import { show, hide } from './ModalSlice'
+import { show } from './ModalSlice'
 
 export default function MainTable() {
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const {isOpen} = useSelector((state) => state.modal.isOpen)//Not regestiring state.modal
 
     return (
         <div>
@@ -45,7 +46,7 @@ export default function MainTable() {
                     </table>
                     <PlusSquare className='addRow' id='icon' onClick={()=> dispatch(show())} style={{height:30, width:30}}/>
                 </div>
-                <MainModal show={show} onHide={hide}/>
+                <MainModal className={`${isOpen ? 'modal-show' : 'modal-hide'}`}/>
         </div>
     )
 }

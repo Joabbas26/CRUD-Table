@@ -52,3 +52,13 @@ html {
 #closeButton {
   font-size:1.4rem;
 }
+
+/* Modal Show */
+.modal-show {
+  display: block;
+}
+
+/* Modal Hide */
+.modal-hide {
+  display: none;
+}
