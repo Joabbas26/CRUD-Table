@@ -1,30 +1,34 @@
-import {React, useSelector} from 'react'
-import './App.css'
-import Button from 'react-bootstrap/Button'
-import Form from 'react-bootstrap/Form'
-import Col from 'react-bootstrap/Col'
-import Row from 'react-bootstrap/Row'
-import Modal from 'react-bootstrap/Modal'
-import { useDispatch } from 'react-redux'
-import { hide } from './ModalSlice'
+import {React, useSelector} from 'react';
+import './App.css';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import Modal from 'react-bootstrap/Modal';
+import { useDispatch } from 'react-redux';
+import hide from './ModalSlice';
 
 export default function MainModal () {
 
-    const dispatch = useDispatch()
-    const {isOpen} = useSelector((state) => state.modal.isOpen)//Not regestiring state.modal
-
+    
+    const isOpen = useSelector((state) => state.modal.isOpen);//Not regestiring state.modal
+    const dispatch = useDispatch();
     const closeModalHandler = () => dispatch(hide());
 
+    function handleSubmit() {
+    }
+
     return (
-        <div> 
-            <Modal.Dialog className={`${isOpen ? 'modal-show' : 'modal-hide'}`}>
+            <Modal className={`${isOpen ? 'modal-show' : 'modal-hide'}`}
+            closeIcon="close"
+            onClose={closeModalHandler}>
                 <Modal.Header>
                     <Modal.Title>Employee Evaluation</Modal.Title>
                     <button className='btn btn primary' id='closeButton' onClick={closeModalHandler}>&#215;</button>
                 </Modal.Header>
 
                 <Modal.Body>
-                    <Form>
+                    <Form onSubmit={handleSubmit}>
                         <Row className="mb-3">
                             <Form.Group as={Col} controlId="formGridEmailFirstName">
                             <Form.Label>First Name</Form.Label>
@@ -66,9 +70,8 @@ export default function MainModal () {
                 </Modal.Body>
 
                 <Modal.Footer>
-                    <Button variant="primary" type="submit">Save</Button>
+                    <Button variant="primary" type="submit" onClick={handleSubmit}>Save</Button>
                 </Modal.Footer>
-            </Modal.Dialog>
-        </div>
+            </Modal>
     )
 }
