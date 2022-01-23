@@ -1,19 +1,29 @@
 import React from 'react';
 import { Trash, PencilSquare, PlusSquare } from 'react-bootstrap-icons';
 import './App.css';
-import { useDispatch, useSelector } from 'react-redux';
-import show from './ModalSlice';
-import MainModal from './MainModal';
+import { useDispatch } from 'react-redux';
+import show from './reducers/ModalSlice';
+//import MainModal from './MainModal';
 
 export default function MainTable() {
 
     const dispatch = useDispatch();
+    // Handles opening modal
     const openModalHandler = () => dispatch(show());
+    // Handles deleting row
+    const openDeleteHandler = () => {
 
-  const isOpen = useSelector(state => state.state)
+    }
+    // Handles edit of table row
+    const openEditHandler = () => {
+
+    }
+
+  //const isOpen = useSelector(state => state.modal)
 
     return (
         <div>
+            <h1 className='tableTitle'>Employee Ranking</h1>
             <div className="table-responsive">
                     <table className="table table-bordered">
                     <thead>
@@ -40,15 +50,15 @@ export default function MainTable() {
                                     <td>100</td>
                                     <td>90</td>
                                     <td>
-                                        <PencilSquare className='edit' id='icon' style={{height:30, width:50}}/>
-                                        <Trash className='delete' id='icon' style={{height:30, width:50}}/>                 
+                                        <PencilSquare className='edit' id='icon' style={{height:30, width:50}} onClick={openEditHandler}/>
+                                        <Trash className='delete' id='icon' style={{height:30, width:50}} onClick={openDeleteHandler}/>                 
                                     </td>
                                 </tr>
                             </tbody>
                     </table>
                     <PlusSquare className='addRow' id='icon' onClick={openModalHandler} style={{height:30, width:30}}/>
                 </div>
-                <MainModal isOpen={isOpen} />
+                
             </div>
     )
 }

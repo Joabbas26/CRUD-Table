@@ -1,30 +1,33 @@
-import {React, useSelector} from 'react';
+import React from 'react';
 import './App.css';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Modal from 'react-bootstrap/Modal';
-import { useDispatch } from 'react-redux';
-import hide from './ModalSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import {show, hide} from './reducers/ModalSlice';
+import { CloseButton } from 'react-bootstrap';
 
 export default function MainModal () {
 
-    
-    const isOpen = useSelector((state) => state.modal.isOpen);//Not regestiring state.modal
+    const isOpen = useSelector((state) => state.modal);
     const dispatch = useDispatch();
     const closeModalHandler = () => dispatch(hide());
-
+    const showModalHandler = () => dispatch(show());
+    
     function handleSubmit() {
+        dispatch(hide());
     }
 
     return (
             <Modal className={`${isOpen ? 'modal-show' : 'modal-hide'}`}
-            closeIcon="close"
-            onClose={closeModalHandler}>
+            show={`${isOpen ? showModalHandler : closeModalHandler}`}
+            onHide={`${isOpen ? closeModalHandler : showModalHandler}`}
+            >
                 <Modal.Header>
                     <Modal.Title>Employee Evaluation</Modal.Title>
-                    <button className='btn btn primary' id='closeButton' onClick={closeModalHandler}>&#215;</button>
+                    <CloseButton onClick={closeModalHandler}/>
                 </Modal.Header>
 
                 <Modal.Body>
