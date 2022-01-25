@@ -62,3 +62,19 @@ export default function MainTable() {
             </div>
     )
 }
+
+/*
+    
+    {NewRow.map((newRow, index) => (
+        <tr key={newRow.id}>
+            <td>{fName}</td>
+            <td>{lName}</td>
+            <td>{compTime}</td>
+            <td>{fullTime}</td>
+            <td>{recom}</td>
+            <td>{total}</td>
+            <td>{edit}</td>
+        </tr>
+    ))}
+
+ */
