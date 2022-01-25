@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-//import MainModal from './MainModal';
 import MainTable from './MainTable';
 //import Input from './Input';
 import MainModal from './MainModal';

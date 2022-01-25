@@ -13,7 +13,7 @@ export const DarkMode = createSlice({
             state.isDark = false;
         },
     },
-})
+});
 
 export default DarkMode.reducer;
 export const { dark, light } = DarkMode.actions;

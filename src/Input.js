@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import './App.css'
 import { useDispatch, useSelector } from 'react-redux';
 import hide from './reducers/ModalSlice';
@@ -11,8 +11,9 @@ export default function Input() {
     function handleSubmit() {
     }
     return (
+        <Fragment>
         <div className={`${isOpen ? 'modal-hide' : 'modal-show'}`}>
-            <div className="modal" tabIndex="-1" role="dialog">
+            <div className="modal-container" tabIndex="-1" role="dialog">
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                     <div className="modal-header">
@@ -61,7 +62,8 @@ export default function Input() {
                     </div>
                     </div>
                 </div>
-                </div>
+            </div>
         </div>
+        </Fragment>
     )
 }

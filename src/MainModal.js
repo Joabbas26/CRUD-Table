@@ -21,7 +21,7 @@ export default function MainModal () {
     }
 
     return (
-            <Modal className={`${isOpen ? 'modal-show' : 'modal-hide'}`}
+            <Modal className='modal'
             show={`${isOpen ? showModalHandler : closeModalHandler}`}
             onHide={`${isOpen ? closeModalHandler : showModalHandler}`}
             >
