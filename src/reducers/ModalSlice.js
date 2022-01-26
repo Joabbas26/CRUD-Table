@@ -1,17 +1,21 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const initialState = {isOpen: false};
+const openModal = {isOpen: false};
 
 const ModalSlice = createSlice({
     name: 'modal',
-    initialState,
+    initialState : openModal,
     reducers: {
         show: (state, action) => {
-            state.isOpen = action.payload;
+            //state.isOpen = !action.payload;
+            const newToggle = {...state, isOpen: true};
+            console.log("new toogle", newToggle);
             
         },
         hide: (state, action) => {
-            state.isOpen = !action.payload;
+            //state.isOpen = action.payload;
+            const newToggle = {...state, isOpen: false};
+            return newToggle;
         },
     },
 });

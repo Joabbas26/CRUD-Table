@@ -6,14 +6,11 @@ export const DarkMode = createSlice({
         isDark: false,
     },
     reducers: {
-        dark: (state) => {
-            state.isDark = true;
-        },
-        light: (state) => {
-            state.isDark = false;
+        toggleDark: (state) => {
+            state.isDark = !state.isDark;
         },
     },
 });
 
 export default DarkMode.reducer;
-export const { dark, light } = DarkMode.actions;
+export const { toggleDark } = DarkMode.actions;

@@ -22,7 +22,7 @@ export default function MainTable() {
   //const isOpen = useSelector(state => state.modal)
 
     return (
-        <div>
+        <div className='mainTable'>
             <h1 className='tableTitle'>Employee Ranking</h1>
             <div className="table-responsive">
                     <table className="table table-bordered">

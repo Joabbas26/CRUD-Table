@@ -1,11 +1,33 @@
-html {
-  background-color: black;
+html, body, #root, .App {
+  height: 100%;
 }
 
 /* Main App Section */
 .App {
   background-color: black;
-  height: 100vh;
+  padding-top: 4rem;
+}
+
+.toggleDiv{
+ position: absolute;
+ right: 20rem;
+ top: 4rem;
+}
+
+/* Dark mode */
+.darkTheme {
+  padding-top: 4rem;
+  background-color: black;
+  color: white;
+  height: 100%;
+}
+
+/* Light mode */
+.lightTheme {
+  padding-top: 4rem;
+  background-color: white;
+  color: black;
+  height: 100%;
 }
 
 /* Table Title */
@@ -16,7 +38,7 @@ html {
 
 /* Table Div */
 .table-responsive {
- padding: 3rem 6rem;
+ padding: 3rem 6rem 0 6rem;
  background-color: black;
 }
 
@@ -56,7 +78,7 @@ html {
 
 /* CloseButton*/
 #closeButton {
-  font-size:1.4rem;
+  font-size: 1.4rem;
 }
 
 /* Modal Show */

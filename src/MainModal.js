@@ -22,7 +22,6 @@ export default function MainModal () {
 
     return (
             <Modal className='modal'
-            show={`${isOpen ? showModalHandler : closeModalHandler}`}
             onHide={`${isOpen ? closeModalHandler : showModalHandler}`}
             >
                 <Modal.Header>
@@ -78,3 +77,8 @@ export default function MainModal () {
             </Modal>
     )
 }
+
+/*
+            show={`${isOpen ? showModalHandler : closeModalHandler}`}
+
+ */
