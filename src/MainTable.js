@@ -1,15 +1,23 @@
 import React from 'react';
 import { Trash, PencilSquare, PlusSquare } from 'react-bootstrap-icons';
 import './App.css';
-import { useDispatch } from 'react-redux';
-import show from './reducers/ModalSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggle } from './reducers/ModalSlice';
 //import MainModal from './MainModal';
 
 export default function MainTable() {
 
+    // Use dispatch declaration and modal, dark mode state from redux
+    const isOpen = useSelector((state) => state.modal.value);
+    const isDark = useSelector((state) => state.darkMode.isDark);
     const dispatch = useDispatch();
+
     // Handles opening modal
-    const openModalHandler = () => dispatch(show());
+    const openModalHandler = () => {
+        dispatch(toggle());
+        console.log(isOpen);
+    }
+
     // Handles deleting row
     const openDeleteHandler = () => {
 
@@ -19,11 +27,12 @@ export default function MainTable() {
 
     }
 
-  //const isOpen = useSelector(state => state.modal)
+    // Changes title color depending on background
+    const fontColor = () => `${isDark ? 'white' : 'black'}`
 
     return (
-        <div className='mainTable'>
-            <h1 className='tableTitle'>Employee Ranking</h1>
+        <div className={`${isDark ? 'darkTheme' : 'lightTheme'}`}>
+            <h1 style={{textAlign: 'center' , color: fontColor }}>Employee Ranking</h1>
             <div className="table-responsive">
                     <table className="table table-bordered">
                     <thead>

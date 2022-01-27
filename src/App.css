@@ -2,12 +2,7 @@ html, body, #root, .App {
   height: 100%;
 }
 
-/* Main App Section */
-.App {
-  background-color: black;
-  padding-top: 4rem;
-}
-
+/* Position the dark mode toggle switch */
 .toggleDiv{
  position: absolute;
  right: 20rem;
@@ -30,16 +25,9 @@ html, body, #root, .App {
   height: 100%;
 }
 
-/* Table Title */
-.tableTitle{
-  text-align: center;
-  color: white;
-}
-
 /* Table Div */
 .table-responsive {
  padding: 3rem 6rem 0 6rem;
- background-color: black;
 }
 
 /* Table Element */
@@ -74,19 +62,4 @@ html, body, #root, .App {
   position: absolute;
   background-color: rgba(255, 255, 255, 0.178);
   color: black;
-}
-
-/* CloseButton*/
-#closeButton {
-  font-size: 1.4rem;
-}
-
-/* Modal Show */
-.modal-show {
-  display: block;
-}
-
-/* Modal Hide */
-.modal-hide {
-  display: none;
 }

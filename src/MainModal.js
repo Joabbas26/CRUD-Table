@@ -6,27 +6,30 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Modal from 'react-bootstrap/Modal';
 import { useDispatch, useSelector } from 'react-redux';
-import {show, hide} from './reducers/ModalSlice';
+import { toggle } from './reducers/ModalSlice';
 import { CloseButton } from 'react-bootstrap';
 
 export default function MainModal () {
 
-    const isOpen = useSelector((state) => state.modal);
+    // Use dispatch declaration and modal state from redux
+    const isOpen = useSelector((state) => state.modal.value);
     const dispatch = useDispatch();
-    const closeModalHandler = () => dispatch(hide());
-    const showModalHandler = () => dispatch(show());
+
+    // Used to toggle modal show and hide
+    const modalHandler = () => {
+        dispatch(toggle());
+    }
     
+    // Handles adding user data to table
     function handleSubmit() {
-        dispatch(hide());
+        dispatch(toggle());
     }
 
     return (
-            <Modal className='modal'
-            onHide={`${isOpen ? closeModalHandler : showModalHandler}`}
-            >
+            <Modal className='modal' onHide={modalHandler} show={isOpen}>
                 <Modal.Header>
                     <Modal.Title>Employee Evaluation</Modal.Title>
-                    <CloseButton onClick={closeModalHandler}/>
+                    <CloseButton onClick={modalHandler}/>
                 </Modal.Header>
 
                 <Modal.Body>
@@ -79,6 +82,7 @@ export default function MainModal () {
 }
 
 /*
-            show={`${isOpen ? showModalHandler : closeModalHandler}`}
+    =========== Test to return isOpen as a string ==============
+    const test = () => {alert(JSON.stringify(isOpen, null, 4));}
 
  */
