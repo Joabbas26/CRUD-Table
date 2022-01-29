@@ -7,6 +7,7 @@ import Row from 'react-bootstrap/Row';
 import Modal from 'react-bootstrap/Modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggle } from './reducers/ModalSlice';
+import { newRow } from './reducers/NewRowSlice';
 import { CloseButton } from 'react-bootstrap';
 
 export default function MainModal () {
@@ -19,11 +20,21 @@ export default function MainModal () {
     const modalHandler = () => {
         dispatch(toggle());
     }
+
+    // Data from modal
+    const [fname, setFname] = useState("");
     
     // Handles adding user data to table
-    function handleSubmit() {
+    const handleSubmit = (e) => {
+        e.preventDefault();
         dispatch(toggle());
+        dispatch(newRow(fname)); 
     }
+
+    // Change First Name
+    const handleChangeName = (text) => {
+        setFname(text);
+      };
 
     return (
             <Modal className='modal' onHide={modalHandler} show={isOpen}>
@@ -37,7 +48,7 @@ export default function MainModal () {
                         <Row className="mb-3">
                             <Form.Group as={Col} controlId="formGridEmailFirstName">
                             <Form.Label>First Name</Form.Label>
-                            <Form.Control type="text" placeholder="First Name" />
+                            <Form.Control type="text" placeholder="First Name" value={e.target.value} onChange={handleChangeName(e)}/>
                             </Form.Group>
 
                             <Form.Group as={Col} controlId="formGridLastName">

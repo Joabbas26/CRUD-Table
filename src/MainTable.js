@@ -12,6 +12,8 @@ export default function MainTable() {
     const isDark = useSelector((state) => state.darkMode.isDark);
     const dispatch = useDispatch();
 
+    const newRow = useSelector((state) => state.newRow);
+
     // Handles opening modal
     const openModalHandler = () => {
         dispatch(toggle());
