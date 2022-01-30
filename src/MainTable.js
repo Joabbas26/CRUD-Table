@@ -3,12 +3,11 @@ import { Trash, PencilSquare, PlusSquare } from 'react-bootstrap-icons';
 import './App.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggle } from './reducers/ModalSlice';
-//import MainModal from './MainModal';
+import { deleteRow } from './reducers/NewRowSlice';
 
-export default function MainTable() {
+export default function MainTable({rowNum}) {
 
     // Use dispatch declaration and modal, dark mode state from redux
-    const isOpen = useSelector((state) => state.modal.value);
     const isDark = useSelector((state) => state.darkMode.isDark);
     const dispatch = useDispatch();
 
@@ -17,12 +16,13 @@ export default function MainTable() {
     // Handles opening modal
     const openModalHandler = () => {
         dispatch(toggle());
-        console.log(isOpen);
     }
 
     // Handles deleting row
     const openDeleteHandler = () => {
-
+        dispatch(deleteRow({
+            rowNum:rowNum
+        }));
     }
     // Handles edit of table row
     const openEditHandler = () => {
@@ -30,14 +30,27 @@ export default function MainTable() {
     }
 
     // Changes title color depending on background
-    const fontColor = () => `${isDark ? 'white' : 'black'}`
+    const fontColor = () => `${isDark ? 'white' : 'black'}`;
+
+    // Delete button in row
+    const deleteIcon = () => {
+        return (
+            <Trash className='delete' id='icon' style={{height:30, width:50}} onClick={openDeleteHandler}/>
+    )};
+
+    // Edit button in row
+    const editIcon = () => {
+        return(
+            <PencilSquare className='edit' id='icon' style={{height:30, width:50}} onClick={openEditHandler}/>
+        )
+    }
 
     return (
         <div className={`${isDark ? 'darkTheme' : 'lightTheme'}`}>
             <h1 style={{textAlign: 'center' , color: fontColor }}>Employee Ranking</h1>
             <div className="table-responsive">
                     <table className="table table-bordered">
-                    <thead>
+                            <thead>
                                 <tr>
                                     <th>#</th>
                                     <th>First Name</th>
@@ -47,7 +60,8 @@ export default function MainTable() {
                                     <th>Overtime</th>
                                     <th>Recommendtion</th>
                                     <th>Total</th>
-                                    <th>Edit/Delete</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -60,10 +74,8 @@ export default function MainTable() {
                                     <td>5</td>
                                     <td>100</td>
                                     <td>90</td>
-                                    <td>
-                                        <PencilSquare className='edit' id='icon' style={{height:30, width:50}} onClick={openEditHandler}/>
-                                        <Trash className='delete' id='icon' style={{height:30, width:50}} onClick={openDeleteHandler}/>                 
-                                    </td>
+                                    <td>{editIcon()}</td>
+                                    <td>{deleteIcon()}</td>
                                 </tr>
                             </tbody>
                     </table>
@@ -75,17 +87,21 @@ export default function MainTable() {
 }
 
 /*
-    
-    {NewRow.map((newRow, index) => (
-        <tr key={newRow.id}>
-            <td>{fName}</td>
-            <td>{lName}</td>
-            <td>{compTime}</td>
-            <td>{fullTime}</td>
-            <td>{recom}</td>
-            <td>{total}</td>
-            <td>{edit}</td>
-        </tr>
-    ))}
+
+        <tbody>
+          {newRow.map(row => (
+            <tr key={row.rowNum}>
+                <td>{row.rowNum}
+                <td>{row.fName}</td>
+                <td>{row.lName}</td>
+                <td>{row.compTime}</td>
+                <td>{row.fullTime}</td>
+                <td>{row.recom}</td>
+                <td>{total}</td>
+                <td>{editIcon()}</td>
+                <td>{deleteIcon()}</td>
+            </tr>
+          ))}
+        </tbody>
 
  */

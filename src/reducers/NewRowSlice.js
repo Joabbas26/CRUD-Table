@@ -2,16 +2,39 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const NewRowSlice = createSlice({
     name: 'newRow',
-    initialState : "",
+    initialState : [
+        {
+            rowNum: 0,
+            fName: '', 
+            lName: '',
+            compTime: 0,
+            fullTime: '',
+            overTime: 0,
+            recomm: 0,
+        }
+    ],
     reducers: {
-        newRow: (state, action) => {
-            action.payload;
+        addRow: (state, action) => {
+            const newRow = {
+                rowNum: action.payload.rowNum,
+                fName: action.payload.fName, 
+                lName: action.payload.lname,
+                compTime: action.payload.compTime,
+                fullTime: action.payload.fullTime,
+                overTime: action.payload.overTime,
+                recomm: action.payload.recomm,
+            };
+            state.push(newRow);
         },
+        deleteRow: (state, action) => {
+            return  state.filter((row) => row.rowNum !== action.payload.rowNum)
+            
+        }
     },
 });
 
 export default NewRowSlice.reducer;
-export const {newRow} = NewRowSlice.actions;
+export const { addRow, deleteRow} = NewRowSlice.actions;
 
 /*
 

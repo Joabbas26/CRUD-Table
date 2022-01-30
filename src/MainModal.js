@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -7,7 +7,7 @@ import Row from 'react-bootstrap/Row';
 import Modal from 'react-bootstrap/Modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggle } from './reducers/ModalSlice';
-import { newRow } from './reducers/NewRowSlice';
+import { addRow } from './reducers/NewRowSlice';
 import { CloseButton } from 'react-bootstrap';
 
 export default function MainModal () {
@@ -28,11 +28,14 @@ export default function MainModal () {
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(toggle());
-        dispatch(newRow(fname)); 
+        dispatch(addRow({
+                fname: fname,
+            })
+        ); 
     }
 
     // Change First Name
-    const handleChangeName = (text) => {
+    const addNewRow = (text) => {
         setFname(text);
       };
 
@@ -48,12 +51,14 @@ export default function MainModal () {
                         <Row className="mb-3">
                             <Form.Group as={Col} controlId="formGridEmailFirstName">
                             <Form.Label>First Name</Form.Label>
-                            <Form.Control type="text" placeholder="First Name" value={e.target.value} onChange={handleChangeName(e)}/>
+                            <Form.Control type="text" placeholder="First Name" 
+                            value={fname} onChange={(e) => addNewRow(e.target.value)}/>
                             </Form.Group>
 
                             <Form.Group as={Col} controlId="formGridLastName">
                             <Form.Label>Last Name</Form.Label>
-                            <Form.Control type="text" placeholder="Last Name" />
+                            <Form.Control type="text" placeholder="Last Name" 
+                            />
                             </Form.Group>
                         </Row>
 
