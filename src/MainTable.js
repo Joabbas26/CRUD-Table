@@ -19,11 +19,13 @@ export default function MainTable({rowNum}) {
     }
 
     // Handles deleting row
-    const openDeleteHandler = () => {
+    const openDeleteHandler = (rowNum) => {
         dispatch(deleteRow({
             rowNum:rowNum
         }));
+        //dispatch(deleteRow.removeItem(rowNum));
     }
+
     // Handles edit of table row
     const openEditHandler = () => {
 
@@ -87,6 +89,8 @@ export default function MainTable({rowNum}) {
 }
 
 /*
+
+
 
         <tbody>
           {newRow.map(row => (

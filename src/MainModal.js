@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -10,7 +10,7 @@ import { toggle } from './reducers/ModalSlice';
 import { addRow } from './reducers/NewRowSlice';
 import { CloseButton } from 'react-bootstrap';
 
-export default function MainModal () {
+export default function MainModal ({rowNum, fName, lName, compTime, fullTime, overTime, recomm}) {
 
     // Use dispatch declaration and modal state from redux
     const isOpen = useSelector((state) => state.modal.value);
@@ -20,24 +20,24 @@ export default function MainModal () {
     const modalHandler = () => {
         dispatch(toggle());
     }
-
-    // Data from modal
-    const [fname, setFname] = useState("");
     
     // Handles adding user data to table
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(toggle());
         dispatch(addRow({
-                fname: fname,
+            rowNum: rowNum,
+            fName: fName, 
+            lName: lName,
+            compTime: compTime,
+            fullTime: fullTime,
+            overTime: overTime,
+            recomm: recomm,
             })
         ); 
+        //alert(JSON.stringify(fName, null, 4));
+        
     }
-
-    // Change First Name
-    const addNewRow = (text) => {
-        setFname(text);
-      };
 
     return (
             <Modal className='modal' onHide={modalHandler} show={isOpen}>
@@ -51,26 +51,24 @@ export default function MainModal () {
                         <Row className="mb-3">
                             <Form.Group as={Col} controlId="formGridEmailFirstName">
                             <Form.Label>First Name</Form.Label>
-                            <Form.Control type="text" placeholder="First Name" 
-                            value={fname} onChange={(e) => addNewRow(e.target.value)}/>
+                            <Form.Control type="text" placeholder="First Name" value={fName}/>
                             </Form.Group>
 
                             <Form.Group as={Col} controlId="formGridLastName">
                             <Form.Label>Last Name</Form.Label>
-                            <Form.Control type="text" placeholder="Last Name" 
-                            />
+                            <Form.Control type="text" placeholder="Last Name" value={lName}/>
                             </Form.Group>
                         </Row>
 
                         <Form.Group className="mb-3" controlId="formGridYearsAtCompany">
                             <Form.Label>Time At Company</Form.Label>
-                            <Form.Control placeholder="In Years" />
+                            <Form.Control placeholder="In Years" value={compTime}/>
                         </Form.Group>
 
                         <Row className="mb-3">
                             <Form.Group as={Col} controlId="formGridFullTime">
                             <Form.Label>Full-Time</Form.Label>
-                            <Form.Select defaultValue="Choose...">
+                            <Form.Select defaultValue="Choose..." value={fullTime}>
                                 <option>Yes</option>
                                 <option>No</option>
                             </Form.Select>
@@ -78,12 +76,12 @@ export default function MainModal () {
 
                             <Form.Group as={Col} controlId="formGridOvertime">
                             <Form.Label>Overtime</Form.Label>
-                            <Form.Control placeholder='In Hours'/>
+                            <Form.Control placeholder='In Hours' value={overTime}/>
                             </Form.Group>
 
                             <Form.Group as={Col} controlId="formGridRecommendtion">
                             <Form.Label>Recommendation</Form.Label>
-                            <Form.Control  placeholder='Score'/>
+                            <Form.Control  placeholder='Score' value={recomm}/>
                             </Form.Group>
                         </Row>
 
