@@ -20,14 +20,13 @@ export default function MainTable({rowNum}) {
 
     // Handles deleting row
     const openDeleteHandler = (rowNum) => {
-        dispatch(deleteRow({
-            rowNum:rowNum
-        }));
+        dispatch(deleteRow({ rowNum:rowNum }));
         //dispatch(deleteRow.removeItem(rowNum));
     }
 
     // Handles edit of table row
     const openEditHandler = () => {
+        dispatch(toggle({ rowNum:rowNum }));
 
     }
 
