@@ -4,8 +4,9 @@ import './App.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggle } from './reducers/ModalSlice';
 import { deleteRow } from './reducers/NewRowSlice';
+import { v4 as uuidv4 } from 'uuid';
 
-export default function MainTable({rowNum}) {
+export default function MainTable() {
 
     // Use dispatch declaration and modal, dark mode state from redux
     const isDark = useSelector((state) => state.darkMode.isDark);
@@ -26,9 +27,42 @@ export default function MainTable({rowNum}) {
 
     // Handles edit of table row
     const openEditHandler = () => {
-        dispatch(toggle({ rowNum:rowNum }));
-
+        
     }
+
+    const getRowTotal = () => {
+        // If comp time more than 50 get 30 points 
+        if (newRow.compTime <= 10) {
+            newRow.total += 10;
+        } else if (newRow.compTime > 10 && newRow.compTime < 50) {
+            newRow.total += 20;
+        }else if (newRow.compTime >= 50){
+            newRow.total += 30;
+        }
+
+        // If full time get 20 points 
+        if (newRow.fullTime === 'Yes') {
+            newRow.total += 20;
+        } else {
+            newRow.total += 10;
+        }
+
+        // If over time more than 5 get 30 points 
+        if (newRow.overTime < 5) {
+            newRow.total += 10;
+        } else {
+            newRow.total += 20;
+        }
+
+        // Divide recommendation score by 10 and multiply  by 3 to get 30 points
+        if (newRow.recomm <= 100) {
+            newRow.total += Math.floor((newRow.recomm/10) * 3);
+        } else {
+            newRow.total += 0;
+        }
+        // Edit later
+        return newRow.total;
+    };
 
     // Changes title color depending on background
     const fontColor = () => `${isDark ? 'white' : 'black'}`;
@@ -66,18 +100,21 @@ export default function MainTable({rowNum}) {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>John</td>
-                                    <td>Smith</td>
-                                    <td>10</td>
-                                    <td>Yes</td>
-                                    <td>5</td>
-                                    <td>100</td>
-                                    <td>90</td>
-                                    <td>{editIcon()}</td>
-                                    <td>{deleteIcon()}</td>
-                                </tr>
+                                {newRow.map(row => (
+                                    <tr key={uuid4()}>
+                                        <td>{row.rowNum}</td>
+                                        <td>{row.fName}</td>
+                                        <td>{row.lName}</td>
+                                        <td>{row.compTime}</td>
+                                        <td>{row.fullTime}</td>
+                                        <td>{row.overTime}</td>
+                                        <td>{row.recomm}</td>
+                                        <td>{row.total}</td>
+                                        <td>{editIcon()}</td>
+                                        <td>{deleteIcon()}</td>
+                                    </tr>
+                                ))}
+
                             </tbody>
                     </table>
                     <PlusSquare className='addRow' id='icon' onClick={openModalHandler} style={{height:30, width:30}}/>
@@ -92,19 +129,7 @@ export default function MainTable({rowNum}) {
 
 
         <tbody>
-          {newRow.map(row => (
-            <tr key={row.rowNum}>
-                <td>{row.rowNum}
-                <td>{row.fName}</td>
-                <td>{row.lName}</td>
-                <td>{row.compTime}</td>
-                <td>{row.fullTime}</td>
-                <td>{row.recom}</td>
-                <td>{total}</td>
-                <td>{editIcon()}</td>
-                <td>{deleteIcon()}</td>
-            </tr>
-          ))}
+          
         </tbody>
 
  */

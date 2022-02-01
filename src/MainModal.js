@@ -25,6 +25,7 @@ export default function MainModal ({rowNum, fName, lName, compTime, fullTime, ov
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(toggle());
+        // Dispatch not registering values from input
         dispatch(addRow({
             rowNum: rowNum,
             fName: fName, 
@@ -34,9 +35,8 @@ export default function MainModal ({rowNum, fName, lName, compTime, fullTime, ov
             overTime: overTime,
             recomm: recomm,
             })
-        ); 
-        //alert(JSON.stringify(fName, null, 4));
-        
+        );  
+        //alert(JSON.stringify(rowNum, null, 4));
     }
 
     return (
