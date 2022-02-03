@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -20,15 +20,17 @@ export default function MainModal () {
     const modalHandler = () => {
         dispatch(toggle());
     }
+
+    const [firstName, setFirstName] = useState('');
     
     // Handles adding user data to table
     const handleSubmit = (e) => {
         dispatch(toggle());
+        alert(JSON.stringify(firstName, null, 4));
 
     // Dispatch not registering values from input
-        dispatch(addRow(e.target.value));  
-
-    //alert(JSON.stringify(addRow, null, 4));
+        dispatch(addRow({fName : firstName}));  
+    
     }
 
     return (
@@ -43,7 +45,7 @@ export default function MainModal () {
                         <Row className="mb-3">
                             <Form.Group as={Col} controlId="formGridEmailFirstName">
                             <Form.Label>First Name</Form.Label>
-                            <Form.Control required type="text" placeholder="First Name"/>
+                            <Form.Control required type="text" placeholder="First Name" value={firstName} onInput={e => setFirstName(e.target.value)}/>
                             </Form.Group>
 
                             <Form.Group as={Col} controlId="formGridLastName">
