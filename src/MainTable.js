@@ -101,7 +101,7 @@ export default function MainTable() {
                             </thead>
                             <tbody>
                                 {newRow.map(row => (
-                                    <tr key={uuid4()}>
+                                    <tr key={uuidv4()}>
                                         <td>{row.rowNum}</td>
                                         <td>{row.fName}</td>
                                         <td>{row.lName}</td>
