@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -10,7 +10,7 @@ import { toggle } from './reducers/ModalSlice';
 import { addRow } from './reducers/NewRowSlice';
 import { CloseButton } from 'react-bootstrap';
 
-export default function MainModal ({rowNum, fName, lName, compTime, fullTime, overTime, recomm}) {
+export default function MainModal () {
 
     // Use dispatch declaration and modal state from redux
     const isOpen = useSelector((state) => state.modal.value);
@@ -21,36 +21,14 @@ export default function MainModal ({rowNum, fName, lName, compTime, fullTime, ov
         dispatch(toggle());
     }
     
-    // Used to validate form
-    const [validated, setValidated] = useState(false);
-
     // Handles adding user data to table
     const handleSubmit = (e) => {
-            if (e.target.checkValidity()) {
-                e.preventDefault();
-                e.stopPropagation();
-                
-            }
-            else{
-                setValidated(true);
-                dispatch(toggle());
-                // Dispatch not registering values from input
-            dispatch(addRow({
-            rowNum: rowNum,
-            fName: fName, 
-            lName: lName,
-            compTime: compTime,
-            fullTime: fullTime,
-            overTime: overTime,
-            recomm: recomm,
-            })
-            
-            
-        
-        );  
-        }
-        //alert(JSON.stringify(rowNum, null, 4));
-        
+        dispatch(toggle());
+
+    // Dispatch not registering values from input
+        dispatch(addRow(e.target.value));  
+
+    //alert(JSON.stringify(addRow, null, 4));
     }
 
     return (
@@ -61,28 +39,28 @@ export default function MainModal ({rowNum, fName, lName, compTime, fullTime, ov
                 </Modal.Header>
 
                 <Modal.Body>
-                    <Form validated={validated} onSubmit={handleSubmit}>
+                    <Form onSubmit={handleSubmit}>
                         <Row className="mb-3">
                             <Form.Group as={Col} controlId="formGridEmailFirstName">
                             <Form.Label>First Name</Form.Label>
-                            <Form.Control required type="text" placeholder="First Name" value={fName}/>
+                            <Form.Control required type="text" placeholder="First Name"/>
                             </Form.Group>
 
                             <Form.Group as={Col} controlId="formGridLastName">
                             <Form.Label>Last Name</Form.Label>
-                            <Form.Control required type="text" placeholder="Last Name" value={lName}/>
+                            <Form.Control required type="text" placeholder="Last Name" />
                             </Form.Group>
                         </Row>
 
                         <Form.Group className="mb-3" controlId="formGridYearsAtCompany">
                             <Form.Label>Time At Company</Form.Label>
-                            <Form.Control required placeholder="In Years" type="number" value={compTime}/>
+                            <Form.Control required placeholder="In Years" type="number" />
                         </Form.Group>
 
                         <Row className="mb-3">
                             <Form.Group as={Col} controlId="formGridFullTime">
                             <Form.Label>Full-Time</Form.Label>
-                            <Form.Select required defaultValue="Choose..." value={fullTime}>
+                            <Form.Select required defaultValue="Choose...">
                                 <option>Yes</option>
                                 <option>No</option>
                             </Form.Select>
@@ -90,12 +68,12 @@ export default function MainModal ({rowNum, fName, lName, compTime, fullTime, ov
 
                             <Form.Group as={Col} controlId="formGridOvertime">
                             <Form.Label>Overtime</Form.Label>
-                            <Form.Control required placeholder='In Hours' type="number" value={overTime}/>
+                            <Form.Control required placeholder='In Hours' type="number" />
                             </Form.Group>
 
                             <Form.Group as={Col} controlId="formGridRecommendtion">
                             <Form.Label>Recommendation</Form.Label>
-                            <Form.Control required placeholder='Score' type="number" value={recomm}/>
+                            <Form.Control required placeholder='Score' type="number"/>
                             </Form.Group>
                         </Row>
 

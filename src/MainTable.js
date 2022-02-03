@@ -21,7 +21,7 @@ export default function MainTable() {
 
     // Handles deleting row
     const openDeleteHandler = (rowNum) => {
-        dispatch(deleteRow({ rowNum:rowNum }));
+        dispatch(deleteRow( {rowNum: rowNum} ));
         //dispatch(deleteRow.removeItem(rowNum));
     }
 
@@ -119,7 +119,6 @@ export default function MainTable() {
                     </table>
                     <PlusSquare className='addRow' id='icon' onClick={openModalHandler} style={{height:30, width:30}}/>
                 </div>
-                
             </div>
     )
 }
