@@ -10,9 +10,8 @@ export default function MainTable() {
 
     // Use dispatch declaration and modal, dark mode state from redux
     const isDark = useSelector((state) => state.darkMode.isDark);
-    const dispatch = useDispatch();
-
     const newRow = useSelector((state) => state.newRow);
+    const dispatch = useDispatch();
 
     // Handles opening modal
     const openModalHandler = () => {
@@ -29,40 +28,6 @@ export default function MainTable() {
     const openEditHandler = () => {
         
     }
-
-    const getRowTotal = () => {
-        // If comp time more than 50 get 30 points 
-        if (newRow.compTime <= 10) {
-            newRow.total += 10;
-        } else if (newRow.compTime > 10 && newRow.compTime < 50) {
-            newRow.total += 20;
-        }else if (newRow.compTime >= 50){
-            newRow.total += 30;
-        }
-
-        // If full time get 20 points 
-        if (newRow.fullTime === 'Yes') {
-            newRow.total += 20;
-        } else {
-            newRow.total += 10;
-        }
-
-        // If over time more than 5 get 30 points 
-        if (newRow.overTime < 5) {
-            newRow.total += 10;
-        } else {
-            newRow.total += 20;
-        }
-
-        // Divide recommendation score by 10 and multiply  by 3 to get 30 points
-        if (newRow.recomm <= 100) {
-            newRow.total += Math.floor((newRow.recomm/10) * 3);
-        } else {
-            newRow.total += 0;
-        }
-        // Edit later
-        return newRow.total;
-    };
 
     // Changes title color depending on background
     const fontColor = () => `${isDark ? 'white' : 'black'}`;
@@ -106,8 +71,8 @@ export default function MainTable() {
                                         <td>{row.fName}</td>
                                         <td>{row.lName}</td>
                                         <td>{row.compTime}</td>
-                                        <td>{row.fullTime}</td>
-                                        <td>{row.overTime}</td>
+                                        <td>{row.fTime}</td>
+                                        <td>{row.oTime}</td>
                                         <td>{row.recomm}</td>
                                         <td>{row.total}</td>
                                         <td>{editIcon()}</td>
@@ -125,10 +90,6 @@ export default function MainTable() {
 
 /*
 
-
-
-        <tbody>
-          
-        </tbody>
+            rowNum : JSON.stringify(newRow.rowIndex + 1),
 
  */

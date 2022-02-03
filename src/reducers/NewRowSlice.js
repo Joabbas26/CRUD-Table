@@ -8,10 +8,10 @@ const NewRowSlice = createSlice({
             const newRow = {
                 rowNum: action.payload.rowNum,
                 fName: action.payload.fName, 
-                lName: action.payload.lname,
+                lName: action.payload.lName,
                 compTime: action.payload.compTime,
-                fullTime: action.payload.fullTime,
-                overTime: action.payload.overTime,
+                fTime: action.payload.fTime,
+                oTime: action.payload.oTime,
                 recomm: action.payload.recomm,
                 total: action.payload.total,
             };

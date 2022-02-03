@@ -13,24 +13,74 @@ import { CloseButton } from 'react-bootstrap';
 export default function MainModal () {
 
     // Use dispatch declaration and modal state from redux
-    const isOpen = useSelector((state) => state.modal.value);
     const dispatch = useDispatch();
+    const isOpen = useSelector((state) => state.modal.value);
+    const newRow = useSelector((state) => state.newRow);
 
     // Used to toggle modal show and hide
     const modalHandler = () => {
         dispatch(toggle());
     }
 
+    const getRowTotal = () => {
+        // If comp time more than 50 get 30 points 
+        if (newRow.compTime <= 10) {
+            newRow.total += 10;
+        } else if (newRow.compTime > 10 && newRow.compTime < 50) {
+            newRow.total += 20;
+        }else if (newRow.compTime >= 50){
+            newRow.total += 30;
+        }
+
+        // If full time get 20 points 
+        if (newRow.fullTime === 'Yes') {
+            newRow.total += 20;
+        } else {
+            newRow.total += 10;
+        }
+
+        // If over time more than 5 get 30 points 
+        if (newRow.overTime < 5) {
+            newRow.total += 10;
+        } else {
+            newRow.total += 20;
+        }
+
+        // Divide recommendation score by 10 and multiply  by 3 to get 30 points
+        if (newRow.recomm <= 100) {
+            newRow.total += Math.floor((newRow.recomm/10) * 3);
+        } else {
+            newRow.total += 0;
+        }
+        // Edit later
+        return newRow.total;
+    };
+
+    // Hooks for all row values
     const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [companyTime, setCompanyTime] = useState('');
+    const [overTime, setOverTime] = useState('');
+    const [fullTime, setFullTime] = useState('Yes');
+    const [recommendation, setRecommendation] = useState('');
     
     // Handles adding user data to table
-    const handleSubmit = (e) => {
+    const handleSubmit = () => {
         dispatch(toggle());
-        alert(JSON.stringify(firstName, null, 4));
+        //alert(JSON.stringify(lastName, null, 4));
 
-    // Dispatch not registering values from input
-        dispatch(addRow({fName : firstName}));  
+    // Adds input data to row
+        dispatch(addRow({
+            fName : firstName,
+            lName : lastName, 
+            compTime : companyTime, 
+            fTime : fullTime,
+            oTime : overTime,
+            recomm: recommendation,
+            //total : getRowTotal,
+        }));  
     
+        
     }
 
     return (
@@ -43,39 +93,44 @@ export default function MainModal () {
                 <Modal.Body>
                     <Form onSubmit={handleSubmit}>
                         <Row className="mb-3">
-                            <Form.Group as={Col} controlId="formGridEmailFirstName">
+                            <Form.Group as={Col} controlId="formGridFirstName">
                             <Form.Label>First Name</Form.Label>
-                            <Form.Control required type="text" placeholder="First Name" value={firstName} onInput={e => setFirstName(e.target.value)}/>
+                            <Form.Control type="text" placeholder="First Name" 
+                            value={firstName} onInput={e => setFirstName(e.target.value)}/>
                             </Form.Group>
 
                             <Form.Group as={Col} controlId="formGridLastName">
                             <Form.Label>Last Name</Form.Label>
-                            <Form.Control required type="text" placeholder="Last Name" />
+                            <Form.Control type="text" placeholder="Last Name" 
+                            value={lastName} onInput={e => setLastName(e.target.value)}/>
                             </Form.Group>
                         </Row>
 
                         <Form.Group className="mb-3" controlId="formGridYearsAtCompany">
                             <Form.Label>Time At Company</Form.Label>
-                            <Form.Control required placeholder="In Years" type="number" />
+                            <Form.Control placeholder="In Years" type="number" 
+                            value={companyTime} onInput={e => setCompanyTime(e.target.value)}/>
                         </Form.Group>
 
                         <Row className="mb-3">
                             <Form.Group as={Col} controlId="formGridFullTime">
                             <Form.Label>Full-Time</Form.Label>
-                            <Form.Select required defaultValue="Choose...">
-                                <option>Yes</option>
-                                <option>No</option>
-                            </Form.Select>
+                            <Form.Control as="select" value={fullTime} onSelect={e => setFullTime(e.target.value)}>
+                                <option value='Yes'>Yes</option>
+                                <option value='No'>No</option>
+                            </Form.Control>
                             </Form.Group>
 
                             <Form.Group as={Col} controlId="formGridOvertime">
                             <Form.Label>Overtime</Form.Label>
-                            <Form.Control required placeholder='In Hours' type="number" />
+                            <Form.Control placeholder='In Hours' type="number" 
+                            value={overTime} onInput={e => setOverTime(e.target.value)}/>
                             </Form.Group>
 
                             <Form.Group as={Col} controlId="formGridRecommendtion">
                             <Form.Label>Recommendation</Form.Label>
-                            <Form.Control required placeholder='Score' type="number"/>
+                            <Form.Control placeholder='Score' type="number"
+                            value={recommendation} onInput={e => setRecommendation(e.target.value)}/>
                             </Form.Group>
                         </Row>
 
@@ -92,5 +147,39 @@ export default function MainModal () {
 /*
     =========== Test to return isOpen as a string ==============
     const test = () => {alert(JSON.stringify(isOpen, null, 4));}
+
+    const getRowTotal = () => {
+            // If comp time more than 50 get 30 points 
+            if (newRow.compTime <= 10) {
+                newRow.total += 10;
+            } else if (newRow.compTime > 10 && newRow.compTime < 50) {
+                newRow.total += 20;
+            }else if (newRow.compTime >= 50){
+                newRow.total += 30;
+            }
+    
+            // If full time get 20 points 
+            if (newRow.fullTime === 'Yes') {
+                newRow.total += 20;
+            } else {
+                newRow.total += 10;
+            }
+    
+            // If over time more than 5 get 30 points 
+            if (newRow.overTime < 5) {
+                newRow.total += 10;
+            } else {
+                newRow.total += 20;
+            }
+    
+            // Divide recommendation score by 10 and multiply  by 3 to get 30 points
+            if (newRow.recomm <= 100) {
+                newRow.total += Math.floor((newRow.recomm/10) * 3);
+            } else {
+                newRow.total += 0;
+            }
+            // Edit later
+            return newRow.total;
+        };
 
  */
