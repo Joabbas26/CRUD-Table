@@ -57,6 +57,7 @@ export default function MainModal () {
     };
 
     // Hooks for all row values
+    const [rowNumber, setRowNumber] = useState(1);
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [companyTime, setCompanyTime] = useState('');
@@ -67,10 +68,10 @@ export default function MainModal () {
     // Handles adding user data to table
     const handleSubmit = () => {
         dispatch(toggle());
-        //alert(JSON.stringify(lastName, null, 4));
-
+        //alert(JSON.stringify(newRow.indexOf(addRow.rowNum)));
     // Adds input data to row
         dispatch(addRow({
+            rowNum: rowNumber,
             fName : firstName,
             lName : lastName, 
             compTime : companyTime, 
@@ -79,8 +80,8 @@ export default function MainModal () {
             recomm: recommendation,
             //total : getRowTotal,
         }));  
-    
-        
+        setRowNumber(rowNumber + 1);
+        //alert(JSON.stringify(lastName, null, 4));
     }
 
     return (
@@ -147,6 +148,7 @@ export default function MainModal () {
 /*
     =========== Test to return isOpen as a string ==============
     const test = () => {alert(JSON.stringify(isOpen, null, 4));}
+
 
     const getRowTotal = () => {
             // If comp time more than 50 get 30 points 

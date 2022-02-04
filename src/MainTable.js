@@ -17,7 +17,7 @@ export default function MainTable() {
     const openModalHandler = () => {
         dispatch(toggle());
     }
-
+    
     // Handles deleting row
     const openDeleteHandler = (rowNum) => {
         dispatch(deleteRow( {rowNum: rowNum} ));
