@@ -65,9 +65,9 @@ export default function MainTable() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {newRow.map(row => (
+                                {newRow.map((row,index) => (
                                     <tr key={uuidv4()}>
-                                        <td>{row.rowNum}</td>
+                                        <td>{index+1}</td>
                                         <td>{row.fName}</td>
                                         <td>{row.lName}</td>
                                         <td>{row.compTime}</td>

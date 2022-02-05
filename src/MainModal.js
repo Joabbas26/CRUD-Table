@@ -15,73 +15,81 @@ export default function MainModal () {
     // Use dispatch declaration and modal state from redux
     const dispatch = useDispatch();
     const isOpen = useSelector((state) => state.modal.value);
-    const newRow = useSelector((state) => state.newRow);
+    // const newRow = useSelector((state) => state.newRow);
 
     // Used to toggle modal show and hide
     const modalHandler = () => {
         dispatch(toggle());
     }
 
-    const getRowTotal = () => {
-        // If comp time more than 50 get 30 points 
-        if (newRow.compTime <= 10) {
-            newRow.total += 10;
-        } else if (newRow.compTime > 10 && newRow.compTime < 50) {
-            newRow.total += 20;
-        }else if (newRow.compTime >= 50){
-            newRow.total += 30;
-        }
-
-        // If full time get 20 points 
-        if (newRow.fullTime === 'Yes') {
-            newRow.total += 20;
-        } else {
-            newRow.total += 10;
-        }
-
-        // If over time more than 5 get 30 points 
-        if (newRow.overTime < 5) {
-            newRow.total += 10;
-        } else {
-            newRow.total += 20;
-        }
-
-        // Divide recommendation score by 10 and multiply  by 3 to get 30 points
-        if (newRow.recomm <= 100) {
-            newRow.total += Math.floor((newRow.recomm/10) * 3);
-        } else {
-            newRow.total += 0;
-        }
-        // Edit later
-        return newRow.total;
-    };
+    const getRowTotal = () =>{
+        var calcTotal = 0;
+             // If comp time more than 50 get 30 points 
+             if (companyTime <= 10) {
+                 calcTotal += 10;
+             } else if (companyTime > 10 && companyTime < 50) {
+                 calcTotal += 20;
+             }else if (companyTime >= 50){
+                 calcTotal += 30;
+                 
+             }
+     
+             // If full time get 20 points 
+             if (fullTime === 'Yes') {
+                 calcTotal += 20;
+             } else {
+                 calcTotal += 10;
+             }
+     
+             // If over time more than 5 get 30 points 
+             if (overTime < 5) {
+                 calcTotal += 10;
+             } else {
+                 calcTotal += 20;
+             }
+     
+             // Divide recommendation score by 10 and multiply  by 3 to get 30 points
+             if (recommendation <= 100) {
+                 calcTotal += Math.floor((recommendation / 10) * 3);
+             } else {
+                 calcTotal += 0;
+             }
+             setTotalScore(totalScore + calcTotal);
+            return calcTotal;
+            
+   }
 
     // Hooks for all row values
-    const [rowNumber, setRowNumber] = useState(1);
+    //const [rowNumber, setRowNumber] = useState(1);
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [companyTime, setCompanyTime] = useState('');
     const [overTime, setOverTime] = useState('');
-    const [fullTime, setFullTime] = useState('Yes');
+    const [fullTime, setFullTime] = useState('');
     const [recommendation, setRecommendation] = useState('');
-    
+    const [totalScore, setTotalScore] = useState(() => {
+        const initialState = getRowTotal();
+        return initialState;
+    });
+
+
     // Handles adding user data to table
     const handleSubmit = () => {
         dispatch(toggle());
-        //alert(JSON.stringify(newRow.indexOf(addRow.rowNum)));
+        // getRowTotal();
+        setTotalScore(totalScore);
     // Adds input data to row
         dispatch(addRow({
-            rowNum: rowNumber,
+            //rowNum: rowNumber,
             fName : firstName,
             lName : lastName, 
             compTime : companyTime, 
             fTime : fullTime,
             oTime : overTime,
             recomm: recommendation,
-            //total : getRowTotal,
+            total : totalScore,
         }));  
-        setRowNumber(rowNumber + 1);
-        //alert(JSON.stringify(lastName, null, 4));
+        // alert(JSON.stringify(totalScore, null, 4));
     }
 
     return (
@@ -116,7 +124,8 @@ export default function MainModal () {
                         <Row className="mb-3">
                             <Form.Group as={Col} controlId="formGridFullTime">
                             <Form.Label>Full-Time</Form.Label>
-                            <Form.Control as="select" value={fullTime} onSelect={e => setFullTime(e.target.value)}>
+                            <Form.Control as="select" value={fullTime} onChange={e => setFullTime(e.target.value)}>
+                                <option value='...'>...</option>
                                 <option value='Yes'>Yes</option>
                                 <option value='No'>No</option>
                             </Form.Control>
@@ -146,42 +155,41 @@ export default function MainModal () {
 }
 
 /*
-    =========== Test to return isOpen as a string ==============
-    const test = () => {alert(JSON.stringify(isOpen, null, 4));}
 
 
-    const getRowTotal = () => {
+  function getRowTotal(){
+        var calcTotal = 0;
             // If comp time more than 50 get 30 points 
-            if (newRow.compTime <= 10) {
-                newRow.total += 10;
-            } else if (newRow.compTime > 10 && newRow.compTime < 50) {
-                newRow.total += 20;
-            }else if (newRow.compTime >= 50){
-                newRow.total += 30;
+            if (companyTime <= 10) {
+                calcTotal += 10;
+            } else if (companyTime > 10 && companyTime < 50) {
+                calcTotal += 20;
+            }else if (companyTime >= 50){
+                calcTotal += 30;
             }
     
             // If full time get 20 points 
-            if (newRow.fullTime === 'Yes') {
-                newRow.total += 20;
+            if (fullTime === 'Yes') {
+                calcTotal += 20;
             } else {
-                newRow.total += 10;
+                calcTotal += 10;
             }
     
             // If over time more than 5 get 30 points 
-            if (newRow.overTime < 5) {
-                newRow.total += 10;
+            if (overTime < 5) {
+                calcTotal += 10;
             } else {
-                newRow.total += 20;
+                calcTotal += 20;
             }
     
             // Divide recommendation score by 10 and multiply  by 3 to get 30 points
-            if (newRow.recomm <= 100) {
-                newRow.total += Math.floor((newRow.recomm/10) * 3);
+            if (recommendation <= 100) {
+                calcTotal += Math.floor((recommendation / 10) * 3);
             } else {
-                newRow.total += 0;
+                calcTotal += 0;
             }
-            // Edit later
-            return newRow.total;
-        };
+    
+        setTotalScore(calcTotal);
+    }
 
  */
