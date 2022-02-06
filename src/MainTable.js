@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Trash, PencilSquare, PlusSquare } from 'react-bootstrap-icons';
 import './App.css';
 import { useDispatch, useSelector } from 'react-redux';
@@ -18,10 +18,13 @@ export default function MainTable() {
         dispatch(toggle());
     }
     
+    const [rowNumber, setRowNumber] = useState(0);
+
     // Handles deleting row
-    const openDeleteHandler = (rowNum) => {
-        dispatch(deleteRow( {rowNum: rowNum} ));
-        //dispatch(deleteRow.removeItem(rowNum));
+    const openDeleteHandler = (e) => {
+        const row = e.target.key;
+        setRowNumber(row)
+        dispatch(deleteRow( {rowNum: rowNumber} ));
     }
 
     // Handles edit of table row
@@ -65,9 +68,9 @@ export default function MainTable() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {newRow.map((row,index) => (
+                                {newRow.map((row, index) => (
                                     <tr key={uuidv4()}>
-                                        <td>{index+1}</td>
+                                        <td>{index + 1}</td>
                                         <td>{row.fName}</td>
                                         <td>{row.lName}</td>
                                         <td>{row.compTime}</td>

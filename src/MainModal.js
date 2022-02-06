@@ -55,8 +55,6 @@ export default function MainModal () {
                  calcTotal += 0;
              }
              setTotalScore(totalScore + calcTotal);
-            return calcTotal;
-            
    }
 
     // Hooks for all row values
@@ -67,17 +65,12 @@ export default function MainModal () {
     const [overTime, setOverTime] = useState('');
     const [fullTime, setFullTime] = useState('');
     const [recommendation, setRecommendation] = useState('');
-    const [totalScore, setTotalScore] = useState(() => {
-        const initialState = getRowTotal();
-        return initialState;
-    });
-
+    const [totalScore, setTotalScore] = useState(0);
 
     // Handles adding user data to table
     const handleSubmit = () => {
         dispatch(toggle());
-        // getRowTotal();
-        setTotalScore(totalScore);
+        getRowTotal();
     // Adds input data to row
         dispatch(addRow({
             //rowNum: rowNumber,
@@ -157,39 +150,5 @@ export default function MainModal () {
 /*
 
 
-  function getRowTotal(){
-        var calcTotal = 0;
-            // If comp time more than 50 get 30 points 
-            if (companyTime <= 10) {
-                calcTotal += 10;
-            } else if (companyTime > 10 && companyTime < 50) {
-                calcTotal += 20;
-            }else if (companyTime >= 50){
-                calcTotal += 30;
-            }
-    
-            // If full time get 20 points 
-            if (fullTime === 'Yes') {
-                calcTotal += 20;
-            } else {
-                calcTotal += 10;
-            }
-    
-            // If over time more than 5 get 30 points 
-            if (overTime < 5) {
-                calcTotal += 10;
-            } else {
-                calcTotal += 20;
-            }
-    
-            // Divide recommendation score by 10 and multiply  by 3 to get 30 points
-            if (recommendation <= 100) {
-                calcTotal += Math.floor((recommendation / 10) * 3);
-            } else {
-                calcTotal += 0;
-            }
-    
-        setTotalScore(calcTotal);
-    }
 
  */
