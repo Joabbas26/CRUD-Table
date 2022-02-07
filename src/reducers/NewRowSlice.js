@@ -18,7 +18,7 @@ const NewRowSlice = createSlice({
             state.push(newRow);
         },
         deleteRow: (state, action) => {
-            return state.filter(row => row.rowNum !== action.payload.rowNum)
+            return state.newRow.filter(row => row.rowNum !== action.payload.rowNum);
         },
     },
 });
@@ -27,26 +27,6 @@ export default NewRowSlice.reducer;
 export const { addRow, deleteRow } = NewRowSlice.actions;
 
 /*
-function reducer(state, action) {
-  switch (action.type) {
-    case 'add':
-      return [...state, action.item];
-    case 'remove':
-      return [
-        ...state.slice(0, action.index),
-        ...state.slice(action.index + 1)
-      ];
-    default:
-      throw new Error();
-  }
-}
-function FavoriteMovies() {
-  const [state, dispatch] = useReducer(reducer, [{ name: 'Heat' }]);
-  return (
-    // Use dispatch({ type: 'add', item: movie })
-    // and dispatch({ type: 'remove', index })...
-  );
-}
-}
+
     
 */

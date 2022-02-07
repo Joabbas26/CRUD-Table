@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Trash, PencilSquare, PlusSquare } from 'react-bootstrap-icons';
 import './App.css';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,14 +17,12 @@ export default function MainTable() {
     const openModalHandler = () => {
         dispatch(toggle());
     }
-    
-    const [rowNumber, setRowNumber] = useState(0);
 
     // Handles deleting row
     const openDeleteHandler = (e) => {
-        const row = e.target.key;
-        setRowNumber(row)
-        dispatch(deleteRow( {rowNum: rowNumber} ));
+        // Save index
+        const rowKey = e.target.parentNode.parentNode.id;
+        dispatch(deleteRow( {rowNum: rowKey} ));       
     }
 
     // Handles edit of table row
@@ -38,7 +36,7 @@ export default function MainTable() {
     // Delete button in row
     const deleteIcon = () => {
         return (
-            <Trash className='delete' id='icon' style={{height:30, width:50}} onClick={openDeleteHandler}/>
+            <Trash className='delete' id='icon' style={{height:30, width:50}} onClick={e => openDeleteHandler(e)}/>
     )};
 
     // Edit button in row
@@ -69,8 +67,8 @@ export default function MainTable() {
                             </thead>
                             <tbody>
                                 {newRow.map((row, index) => (
-                                    <tr key={uuidv4()}>
-                                        <td>{index + 1}</td>
+                                    <tr key={uuidv4()} id={index+1}>
+                                        <td>{index+1}</td>
                                         <td>{row.fName}</td>
                                         <td>{row.lName}</td>
                                         <td>{row.compTime}</td>
