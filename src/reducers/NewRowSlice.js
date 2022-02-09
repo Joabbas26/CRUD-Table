@@ -18,7 +18,7 @@ const NewRowSlice = createSlice({
             state.push(newRow);
         },
         deleteRow: (state, action) => {
-            return state.newRow.filter(row => row.rowNum !== action.payload.rowNum);
+            state.newRow.filter(row => row.rowNum !== action.payload.rowNum.id);
         },
     },
 });

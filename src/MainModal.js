@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useRef} from 'react';
 import './App.css';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -21,6 +21,8 @@ export default function MainModal () {
     const modalHandler = () => {
         dispatch(toggle());
     }
+
+    const totalRef = useRef(0);
 
     const getRowTotal = () =>{
         var calcTotal = 0;
@@ -54,7 +56,8 @@ export default function MainModal () {
              } else {
                  calcTotal += 0;
              }
-             setTotalScore(calcTotal);
+            // Sets ref to calculated total score
+            totalRef.current = calcTotal;
    }
 
     // Hooks for all row values
@@ -65,11 +68,6 @@ export default function MainModal () {
     const [overTime, setOverTime] = useState('');
     const [fullTime, setFullTime] = useState('');
     const [recommendation, setRecommendation] = useState('');
-    const [totalScore, setTotalScore] = useState(0);
-
-    useEffect(() => {
-        console.log('Total Score: ', totalScore);
-     }, [totalScore]);
 
     // Handles adding user data to table
     const handleSubmit = () => {
@@ -84,9 +82,8 @@ export default function MainModal () {
             fTime : fullTime,
             oTime : overTime,
             recomm: recommendation,
-            total : totalScore,
+            total : totalRef.current,
         }));  
-        // alert(JSON.stringify(totalScore, null, 4));
     }
 
     return (

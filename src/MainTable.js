@@ -21,8 +21,12 @@ export default function MainTable() {
     // Handles deleting row
     const openDeleteHandler = (e) => {
         // Save index
-        const rowKey = e.target.parentNode.parentNode.id;
-        dispatch(deleteRow( {rowNum: rowKey} ));       
+        const rowKey = parseInt(e.target.parentNode.parentNode.id);
+        //dispatch(deleteRow( {rowNum: rowKey} ));  
+        newRow.filter((Row, index) => {
+            // alert(JSON.stringify(Row));
+            return (index+1) !== rowKey;
+        });  
     }
 
     // Handles edit of table row
@@ -59,7 +63,7 @@ export default function MainTable() {
                                     <th>Years At Company</th>
                                     <th>Full-Time</th>
                                     <th>Overtime</th>
-                                    <th>Recommendtion</th>
+                                    <th>Recommendation</th>
                                     <th>Total</th>
                                     <th>Edit</th>
                                     <th>Delete</th>
@@ -80,7 +84,6 @@ export default function MainTable() {
                                         <td>{deleteIcon()}</td>
                                     </tr>
                                 ))}
-
                             </tbody>
                     </table>
                     <PlusSquare className='addRow' id='icon' onClick={openModalHandler} style={{height:30, width:30}}/>
@@ -91,6 +94,5 @@ export default function MainTable() {
 
 /*
 
-            rowNum : JSON.stringify(newRow.rowIndex + 1),
 
  */
