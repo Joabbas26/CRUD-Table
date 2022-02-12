@@ -6,20 +6,29 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Modal from 'react-bootstrap/Modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggle } from './reducers/ModalSlice';
-import { addRow } from './reducers/NewRowSlice';
+import { toggleEdit } from './reducers/ModalEditSlice';
+import { saveRow } from './reducers/NewRowSlice';
 import { CloseButton } from 'react-bootstrap';
 
-export default function MainModal () {
+export default function EditModal () {
 
     // Use dispatch declaration and modal state from redux
     const dispatch = useDispatch();
-    const isOpen = useSelector((state) => state.modal.value);
-    // const newRow = useSelector((state) => state.newRow);
+    const isOpenEdit = useSelector((state) => state.editModal);
+    const newRow = useSelector((state) => state.newRow);
 
-    // Used to toggle modal show and hide
+    // Used to toggle edit modal 
     const modalHandler = () => {
-        dispatch(toggle());
+        dispatch(toggleEdit());
+        // Get values from row
+        const editRows = newRow.entries();
+        setFirstName(editRows.firstName);
+        setLastName(editRows.lastName);
+        setCompanyTime(editRows.companyTime);
+        setOverTime(editRows.overTime);
+        setFullTime(editRows.fullTime);
+        setRecommendation(editRows.recommendation);
+        alert(editRows);
     }
 
     const totalRef = useRef(0);
@@ -61,7 +70,6 @@ export default function MainModal () {
    }
 
     // Hooks for all row values
-    //const [rowNumber, setRowNumber] = useState(1);
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [companyTime, setCompanyTime] = useState('');
@@ -72,11 +80,9 @@ export default function MainModal () {
     // Handles adding user data to table
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(toggle());
+        dispatch(toggleEdit());
         getRowTotal();
-    // Adds input data to row
-        dispatch(addRow({
-            //rowNum: rowNumber,
+        dispatch(saveRow({
             fName : firstName,
             lName : lastName, 
             compTime : companyTime, 
@@ -84,13 +90,13 @@ export default function MainModal () {
             oTime : overTime,
             recomm: recommendation,
             total : totalRef.current,
-        }));  
+        }));
     }
 
     return (
-            <Modal className='modal' onHide={modalHandler} show={isOpen}>
+            <Modal className='modalEdit' onHide={modalHandler} show={isOpenEdit}>
                 <Modal.Header>
-                    <Modal.Title>Employee Evaluation</Modal.Title>
+                    <Modal.Title>Edit Employee Evaluation</Modal.Title>
                     <CloseButton onClick={modalHandler}/>
                 </Modal.Header>
 

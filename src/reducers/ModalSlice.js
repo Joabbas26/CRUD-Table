@@ -13,7 +13,7 @@ const ModalSlice = createSlice({
 });
 
 export default ModalSlice.reducer;
-export const { toggle} = ModalSlice.actions;
+export const { toggle } = ModalSlice.actions;
 
 /*
 

@@ -22,11 +22,11 @@ export default function MainTable() {
     const openDeleteHandler = (e) => {
         // Save index
         const rowKey = parseInt(e.target.parentNode.parentNode.id);
-        //dispatch(deleteRow( {rowNum: rowKey} ));  
-        newRow.filter((Row, index) => {
-            // alert(JSON.stringify(Row));
-            return (index+1) !== rowKey;
-        });  
+        dispatch(deleteRow( {rowNum: rowKey} ));  
+        // newRow.filter((Row, index) => {
+        //     // alert(JSON.stringify(Row));
+        //     return (index+1) !== rowKey;
+        // });  
     }
 
     // Handles edit of table row
@@ -46,7 +46,7 @@ export default function MainTable() {
     // Edit button in row
     const editIcon = () => {
         return(
-            <PencilSquare className='edit' id='icon' style={{height:30, width:50}} onClick={openEditHandler}/>
+            <PencilSquare className='edit' id='icon' style={{height:30, width:50}} onClick={e => openEditHandler(e)}/>
         )
     }
 

@@ -4,6 +4,7 @@ import MainTable from './MainTable';
 import MainModal from './MainModal';
 import DarkModeToggle from './DarkModeToggle';
 import { useSelector } from 'react-redux';
+import EditModal from './EditModal';
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
       <DarkModeToggle/>
       <MainTable/>
       <MainModal/>
+      <EditModal/>
     </div>
   );
 }
