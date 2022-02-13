@@ -30,8 +30,12 @@ export default function MainTable() {
     }
 
     // Handles edit of table row
-    const openEditHandler = () => {
-        
+    const openEditHandler = (e) => {
+        const rowKey = parseInt(e.target.parentNode.parentNode.id);
+        // loop over values
+        for (let value of Object.values(newRow)) {
+            alert(JSON.stringify(value)); // John, then 30
+        }
     }
 
     // Changes title color depending on background

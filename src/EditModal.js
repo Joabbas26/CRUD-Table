@@ -7,7 +7,7 @@ import Row from 'react-bootstrap/Row';
 import Modal from 'react-bootstrap/Modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleEdit } from './reducers/ModalEditSlice';
-import { saveRow } from './reducers/NewRowSlice';
+import { saveRow } from './reducers/ModalEditSlice';
 import { CloseButton } from 'react-bootstrap';
 
 export default function EditModal () {
@@ -20,15 +20,6 @@ export default function EditModal () {
     // Used to toggle edit modal 
     const modalHandler = () => {
         dispatch(toggleEdit());
-        // Get values from row
-        const editRows = newRow.entries();
-        setFirstName(editRows.firstName);
-        setLastName(editRows.lastName);
-        setCompanyTime(editRows.companyTime);
-        setOverTime(editRows.overTime);
-        setFullTime(editRows.fullTime);
-        setRecommendation(editRows.recommendation);
-        alert(editRows);
     }
 
     const totalRef = useRef(0);
