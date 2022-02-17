@@ -2,6 +2,9 @@
   "name": "rank-table",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "17.x"
+  },
   "proxy": "http://localhost:8080",
   "dependencies": {
     "@reduxjs/toolkit": "^1.7.1",
