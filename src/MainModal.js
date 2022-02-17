@@ -95,7 +95,7 @@ export default function MainModal () {
                 </Modal.Header>
 
                 <Modal.Body>
-                    <Form onSubmit={handleSubmit}>
+                    <Form onSubmit={handleSubmit} action="../../post" method="post">
                         <Row className="mb-3">
                             <Form.Group as={Col} controlId="formGridFirstName">
                             <Form.Label>First Name</Form.Label>

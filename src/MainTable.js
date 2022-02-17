@@ -20,22 +20,24 @@ export default function MainTable() {
 
     // Handles deleting row
     const openDeleteHandler = (e) => {
-        // Save index
-        const rowKey = parseInt(e.target.parentNode.parentNode.id);
-        dispatch(deleteRow( {rowNum: rowKey} ));  
-        // newRow.filter((Row, index) => {
-        //     // alert(JSON.stringify(Row));
-        //     return (index+1) !== rowKey;
-        // });  
+        // Get index from tr id
+        const rowIndex = Number(e.target.parentNode.parentNode.id);
+        dispatch(deleteRow( {rowNum: rowIndex} ));  
     }
 
     // Handles edit of table row
     const openEditHandler = (e) => {
-        const rowKey = parseInt(e.target.parentNode.parentNode.id);
+        const rowIndex = parseInt(e.target.parentNode.parentNode.id);
+        let rowCounter = 1;
         // loop over values
         for (let value of Object.values(newRow)) {
-            alert(JSON.stringify(value)); // John, then 30
+            if (rowCounter === rowIndex) {
+                alert(JSON.stringify(value.fName)); 
+            }
+            // wont work on row delete 
+            rowCounter += 1;
         }
+        // openModalHandler();
     }
 
     // Changes title color depending on background
