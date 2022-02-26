@@ -18,7 +18,9 @@ export default function DarkModeToggle() {
   return (
       // Bootstrap switch for dark mode
     <div className='toggleDiv'>
-        <BootstrapSwitchButton checked={isDark} onstyle="dark" offstyle="light"onChange={setDarkMode}/>
+        <BootstrapSwitchButton checked={isDark} onstyle="dark" offstyle="light" onChange={setDarkMode}/>
+      <input type="checkbox" id="check1" className="toggle"/>
+      <label htmlFor="check1"></label>
     </div>
   );
 }
