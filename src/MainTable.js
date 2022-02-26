@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { Trash, PencilSquare, PlusSquare } from 'react-bootstrap-icons';
 import './App.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggle } from './reducers/ModalSlice';
-import { deleteRow } from './reducers/NewRowSlice';
+import { deleteRow, saveRow } from './reducers/NewRowSlice';
 import { v4 as uuidv4 } from 'uuid';
 
 export default function MainTable() {
@@ -12,6 +12,15 @@ export default function MainTable() {
     const isDark = useSelector((state) => state.darkMode.isDark);
     const newRow = useSelector((state) => state.newRow);
     const dispatch = useDispatch();
+
+    // Hooks for all row values
+    //const [rowNumber, setRowNumber] = useState(1);
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [companyTime, setCompanyTime] = useState('');
+    const [overTime, setOverTime] = useState('');
+    const [fullTime, setFullTime] = useState('');
+    const [recommendation, setRecommendation] = useState('');
 
     // Handles opening modal
     const openModalHandler = () => {
@@ -25,6 +34,44 @@ export default function MainTable() {
         dispatch(deleteRow( {rowNum: rowIndex} ));  
     }
 
+    const totalRef = useRef(0);
+
+    const getRowTotal = () =>{
+        var calcTotal = 0;
+             // If comp time more than 50 get 30 points 
+             if (companyTime <= 10) {
+                 calcTotal += 10;
+             } else if (companyTime > 10 && companyTime < 50) {
+                 calcTotal += 20;
+             }else if (companyTime >= 50){
+                 calcTotal += 30;
+                 
+             }
+     
+             // If full time get 20 points 
+             if (fullTime === 'Yes') {
+                 calcTotal += 20;
+             } else {
+                 calcTotal += 10;
+             }
+     
+             // If over time more than 5 get 30 points 
+             if (overTime < 5) {
+                 calcTotal += 10;
+             } else {
+                 calcTotal += 20;
+             }
+     
+             // Divide recommendation score by 10 and multiply  by 3 to get 30 points
+             if (recommendation <= 100) {
+                 calcTotal += Math.floor((recommendation / 10) * 3);
+             } else {
+                 calcTotal += 0;
+             }
+            // Sets ref to calculated total score
+            totalRef.current = calcTotal;
+   }
+
     // Handles edit of table row
     const openEditHandler = (e) => {
         const rowIndex = parseInt(e.target.parentNode.parentNode.id);
@@ -33,11 +80,19 @@ export default function MainTable() {
         for (let value of Object.values(newRow)) {
             if (rowCounter === rowIndex) {
                 alert(JSON.stringify(value.fName)); 
+                setFirstName(value.fName);
+                setLastName(value.lastName);
+                setCompanyTime(value.companyTime);
+                setOverTime(value.overTime);
+                setFullTime(value.fullTime);
+                setRecommendation(value.recommendation);
             }
             // wont work on row delete 
             rowCounter += 1;
         }
         // openModalHandler();
+
+        
     }
 
     // Changes title color depending on background
