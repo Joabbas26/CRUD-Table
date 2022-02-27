@@ -6,11 +6,67 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Modal from 'react-bootstrap/Modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggle } from './reducers/ModalSlice';
-import { addRow } from './reducers/NewRowSlice';
+import { toggleEdit } from './reducers/EditModalSlice';
+import { saveRow } from './reducers/NewRowSlice';
 import { CloseButton } from 'react-bootstrap';
 
 export default function EditModal() {
+    // Use dispatch declaration and modal state from redux
+    const dispatch = useDispatch();
+    const isOpen = useSelector((state) => state.modal.value);
+
+    // Used to toggle modal show and hide
+    const modalHandler = () => {
+        dispatch(toggleEdit());
+    }
+
+    // Hooks for all row values
+    //const [rowNumber, setRowNumber] = useState(1);
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [companyTime, setCompanyTime] = useState('');
+    const [overTime, setOverTime] = useState('');
+    const [fullTime, setFullTime] = useState('');
+    const [recommendation, setRecommendation] = useState('');
+
+    const totalRef = useRef(0);
+
+    const getRowTotal = () =>{
+        var calcTotal = 0;
+             // If comp time more than 50 get 30 points 
+             if (companyTime <= 10) {
+                 calcTotal += 10;
+             } else if (companyTime > 10 && companyTime < 50) {
+                 calcTotal += 20;
+             }else if (companyTime >= 50){
+                 calcTotal += 30;
+                 
+             }
+     
+             // If full time get 20 points 
+             if (fullTime === 'Yes') {
+                 calcTotal += 20;
+             } else {
+                 calcTotal += 10;
+             }
+     
+             // If over time more than 5 get 30 points 
+             if (overTime < 5) {
+                 calcTotal += 10;
+             } else {
+                 calcTotal += 20;
+             }
+     
+             // Divide recommendation score by 10 and multiply  by 3 to get 30 points
+             if (recommendation <= 100) {
+                 calcTotal += Math.floor((recommendation / 10) * 3);
+             } else {
+                 calcTotal += 0;
+             }
+            // Sets ref to calculated total score
+            totalRef.current = calcTotal;
+   }
+
     handleSubmit = () => {
         getRowTotal();
         // Adds input data to row
