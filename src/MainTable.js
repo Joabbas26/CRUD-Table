@@ -90,9 +90,6 @@ export default function MainTable() {
             // wont work on row delete 
             rowCounter += 1;
         }
-        // openModalHandler();
-
-        
     }
 
     // Changes title color depending on background
