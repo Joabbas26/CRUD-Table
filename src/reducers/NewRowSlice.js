@@ -9,9 +9,9 @@ const NewRowSlice = createSlice({
                 rowNum: action.payload.rowNum,
                 fName: action.payload.fName, 
                 lName: action.payload.lName,
-                compTime: action.payload.compTime,
-                fTime: action.payload.fTime,
-                oTime: action.payload.oTime,
+                looks: action.payload.looks,
+                make: action.payload.make,
+                eng: action.payload.eng,
                 recomm: action.payload.recomm,
                 total: action.payload.total,
             };
@@ -22,25 +22,56 @@ const NewRowSlice = createSlice({
                 row.id === action.payload.id);
                 state.splice(index, 1);
             },
-        saveRow: (state, action) => {
-            const newRow = {
-                rowNum: action.payload.rowNum,
-                fName: action.payload.fName, 
-                lName: action.payload.lName,
-                compTime: action.payload.compTime,
-                fTime: action.payload.fTime,
-                oTime: action.payload.oTime,
-                recomm: action.payload.recomm,
-                total: action.payload.total,
-            };
-            state.splice(state.indexOf(newRow), 1, action.payload)
-        },
+            saveRow: (state, action) => {
+                const updatedRow = {
+                    rowNum: action.payload.rowNum,
+                    fName: action.payload.fName,
+                    lName: action.payload.lName,
+                    looks: action.payload.looks,
+                    make: action.payload.make,
+                    eng: action.payload.eng,
+                    recomm: action.payload.recomm,
+                    total: action.payload.total,
+                };
+                // const index = state.findIndex((rows) =>
+                    // rows.id === action.payload.id);
+                    state.splice(updatedRow.rowNum, 1, updatedRow);
+            },
     },
 });
 
 export default NewRowSlice.reducer;
-export const { addRow, deleteRow, saveRow} = NewRowSlice.actions;
+export const { addRow, deleteRow, saveRow } = NewRowSlice.actions;
 
 /*
-    
+
+
+
+
+state.roundScore.splice(state.roundScore.findIndex((arrow) => arrow.id === action.payload), 1);
+
+deleteMeal: (state, action) => {
+    // you receive you inputIndex from the payload
+    let { inputIndex } = action.payload;
+    // and you use it to splice the desired item off the array
+    state.meals.splice(inputIndex, 1);
+    ...your other logic if any
+},
+
+var i = remove.length;
+while (i--) {
+    if (remove[i] != undefined)
+        options.series[0].data.splice(remove[i],1);
+}  
+remove.push(index);
+
+var cache = ["0", "1", "2", "3", "4"];
+cache.r = "r";
+console.log(cache.length);
+for (var i = cache.length - 1; i >= 0; i--) {
+    cache.splice(i, 1);
+}
+console.log(cache);
+
+
 */

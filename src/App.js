@@ -1,7 +1,9 @@
 import React from 'react';
 import './App.css';
-import MainTable from './MainTable';
-import MainModal from './MainModal';
+// import MainTable from './MainTable';
+// import MainModal from './MainModal';
+// import EditModal from './EditModal';
+import TableCombined from './TableCombined';
 import DarkModeToggle from './DarkModeToggle';
 import { useSelector } from 'react-redux';
 
@@ -13,8 +15,10 @@ function App() {
   return (
     <div className = {`${isDark ? 'darkTheme' : 'lightTheme'}`}>
       <DarkModeToggle/>
-      <MainTable/>
-      <MainModal/>
+      {/* <MainTable/> */}
+      {/* <MainModal/> */}
+      {/* <EditModal/> */}
+      <TableCombined/>
     </div>
   );
 }

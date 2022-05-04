@@ -67,7 +67,7 @@ export default function EditModal() {
             totalRef.current = calcTotal;
    }
 
-    handleSubmit = () => {
+   const handleSubmit = () => {
         getRowTotal();
         // Adds input data to row
         dispatch(saveRow({

@@ -63,6 +63,15 @@ input:checked + .toggleLabel:after {
     background-color: #19292c;
     }
 
+    .tableTitle{
+      color: #0d6efd;
+      text-align: center;
+      font-size: 40px;
+      font-family: Roboto;
+      font-weight: 700;
+     margin: 3rem 0;
+  }
+  
 /* Table Div */
 .table-responsive {
  padding: 3rem 6rem 0 6rem;
