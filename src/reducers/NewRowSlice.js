@@ -18,9 +18,7 @@ const NewRowSlice = createSlice({
             state.push(newRow);
         },
         deleteRow: (state, action) => {
-            const index = state.findIndex((row) => 
-                row.id === action.payload.id);
-                state.splice(index, 1);
+            state.splice(action.payload.rowNum - 1, 1);
             },
             saveRow: (state, action) => {
                 const updatedRow = {
@@ -33,9 +31,10 @@ const NewRowSlice = createSlice({
                     recomm: action.payload.recomm,
                     total: action.payload.total,
                 };
+                alert(action.payload.rowNum - 1);
                 // const index = state.findIndex((rows) =>
                     // rows.id === action.payload.id);
-                    state.splice(updatedRow.rowNum, 1, updatedRow);
+                    state.splice(updatedRow.rowNum -1, 1, updatedRow);
             },
     },
 });

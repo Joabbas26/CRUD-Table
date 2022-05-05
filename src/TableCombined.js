@@ -22,7 +22,7 @@ export default function TableCombined() {
     const dispatch = useDispatch();
 
     // Hooks for all row values
-    const [rowNumber, setRowNumber] = useState('');
+    const [rowNumber, setRowNumber] = useState(0);
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [Looks, setLooks] = useState('');
@@ -102,6 +102,7 @@ export default function TableCombined() {
     }
     else{
     dispatch(toggleEdit());
+    alert(rowNumber)
      // Adds input data to row
     dispatch(saveRow({
         rowNum: rowNumber,
@@ -150,7 +151,6 @@ export default function TableCombined() {
         editModalHandler();
         const rowIndex = parseInt(e.target.parentNode.parentNode.id);
         setRowNumber(rowIndex);
-        alert(rowIndex);
         let rowCounter = 1;
         // loop over values
         for (let value of Object.values(newRow)) {
