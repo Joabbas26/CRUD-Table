@@ -102,7 +102,7 @@ export default function TableCombined() {
     }
     else{
     dispatch(toggleEdit());
-    alert(rowNumber)
+    // alert(rowNumber);
      // Adds input data to row
     dispatch(saveRow({
         rowNum: rowNumber,

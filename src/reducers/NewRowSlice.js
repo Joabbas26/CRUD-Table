@@ -22,7 +22,7 @@ const NewRowSlice = createSlice({
             },
             saveRow: (state, action) => {
                 const updatedRow = {
-                    rowNum: action.payload.rowNum,
+                    // rowNum: action.payload.rowNum,
                     fName: action.payload.fName,
                     lName: action.payload.lName,
                     looks: action.payload.looks,
@@ -31,10 +31,11 @@ const NewRowSlice = createSlice({
                     recomm: action.payload.recomm,
                     total: action.payload.total,
                 };
-                alert(action.payload.rowNum - 1);
                 // const index = state.findIndex((rows) =>
                     // rows.id === action.payload.id);
-                    state.splice(updatedRow.rowNum -1, 1, updatedRow);
+                    // state.splice(action.payload.rowNum, 1, updatedRow);
+                    state.splice(state.findIndex((arrow) => arrow.id === action.payload), 1, updatedRow);
+
             },
     },
 });
@@ -47,7 +48,6 @@ export const { addRow, deleteRow, saveRow } = NewRowSlice.actions;
 
 
 
-state.roundScore.splice(state.roundScore.findIndex((arrow) => arrow.id === action.payload), 1);
 
 deleteMeal: (state, action) => {
     // you receive you inputIndex from the payload
