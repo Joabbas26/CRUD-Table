@@ -32,6 +32,17 @@ export default function TableCombined() {
     const [inputStyle, setInputStyle] = useState({});
     const [textValidationStyle, setTexValidationStyle] = useState({ display: 'none'});
 
+    // Hooks for search
+    const [query, setQuery] = useState("");
+    const keys = ["firstName", "lastName", "Looks", "makeup", "English"];
+
+    // Search to filter by terms
+    const searchHandler = (data) => {
+        return data.filter((item) =>
+          keys.some((key) => item[key].toLowerCase().includes(query))
+        );
+    };
+
      // Used to toggle modal show and hide
      const editModalHandler = () => {
         dispatch(toggleEdit());
@@ -303,6 +314,17 @@ export default function TableCombined() {
             </Modal>
 
             <h1 className='tableTitle'>Female Ranking</h1>
+            <div className='row'>
+                <div className='col-md-3'>
+                    <input
+                        className="searchHandler"
+                        placeholder="Search..."
+                        onChange={(e) => setQuery(e.target.value.toLowerCase())}
+                    />
+                </div>
+            </div>
+            
+            
             <div className="table-responsive">
                     <table className="table table-bordered">
                             <thead>

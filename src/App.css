@@ -72,6 +72,13 @@ input:checked + .toggleLabel:after {
      margin: 3rem 0;
   }
   
+/* Search */
+.searchHandler{
+  margin: 0 0 0 25%;
+  border: 1px solid #19292c;
+  border-radius: 5px;
+}
+
 /* Table Div */
 .table-responsive {
  padding: 3rem 6rem 0 6rem;
