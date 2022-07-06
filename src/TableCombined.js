@@ -37,8 +37,8 @@ export default function TableCombined() {
     const keys = ["firstName", "lastName", "Looks", "makeup", "English"];
 
     // Search to filter by terms
-    const searchHandler = (data) => {
-        return data.filter((item) =>
+    const searchHandler = (newRow) => {
+        return newRow.filter((item) =>
           keys.some((key) => item[key].toLowerCase().includes(query))
         );
     };
