@@ -1,9 +1,10 @@
 import React, { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggle } from '../reducers/ModalSlice';
+import { toggle } from './reducers/ModalSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashCan, faPenToSquare, faPlusSquare } from '@fortawesome/free-solid-svg-icons';import { toggleEdit } from '../reducers/EditModalSlice';
-import { addRow, deleteRow, saveRow } from '../reducers/NewRowSlice';
+import { faTrashCan, faPenToSquare, faPlusSquare } from '@fortawesome/free-solid-svg-icons';
+import { toggleEdit } from './reducers/EditModalSlice';
+import { addRow, deleteRow, saveRow } from './reducers/NewRowSlice';
 import { v4 as uuidv4 } from 'uuid';
 
 export default function CRUDApp() {
